@@ -2,6 +2,7 @@ import discord
 import os
 
 from dotenv import load_dotenv
+from wakeonlan import send_magic_packet
 
 load_dotenv()
 
@@ -18,5 +19,8 @@ async def on_message(message):
 
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
+
+    if message.content.startswith('$on'):
+        await send_magic_packet('SRVMAC')
 
 client.run(os.getenv('TOKEN'))
