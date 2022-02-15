@@ -21,6 +21,7 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     if message.content.startswith('$on'):
-        await send_magic_packet('SRVMAC')
+        send_magic_packet('SRVMAC')
+        await message.channel.send('Turning server on!')
 
 client.run(os.getenv('TOKEN'))
