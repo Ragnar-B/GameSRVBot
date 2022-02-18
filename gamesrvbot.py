@@ -3,18 +3,24 @@ import os
 
 from dotenv import load_dotenv
 from wakeonlan import send_magic_packet
+from papamiko import SSHClient
 
 load_dotenv()
 
-client = discord.Client()
+discord = discord.Client()
+ssh = SSHclient()
 
-@client.event
+discord.run(os.getenv('TOKEN'))
+ssh.load_system_host_keys()
+
+
+@discord.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(discord))
 
-@client.event
+@discord.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == discord.user:
         return
 
     if message.content.startswith('$hello'):
@@ -22,6 +28,9 @@ async def on_message(message):
 
     if message.content.startswith('$on'):
         send_magic_packet(os.getenv('SRVMAC', ip_address='BCAST'))
-        await message.channel.send('Turning server on!')
+        await message.channel.send('Turning on server!')
 
-client.run(os.getenv('TOKEN'))
+    if message.content.startswith('$off'):
+        ssh.connect(os.getenv('SRV'))
+        await message.channel.send('Turning off server!')
+        ssh.close()
