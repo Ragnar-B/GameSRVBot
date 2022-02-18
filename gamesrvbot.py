@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 from wakeonlan import send_magic_packet
-from papamiko import SSHClient
+from paramiko import SSHClient
 
 load_dotenv()
 
@@ -12,7 +12,6 @@ ssh = SSHclient()
 
 discord.run(os.getenv('TOKEN'))
 ssh.load_system_host_keys()
-
 
 @discord.event
 async def on_ready():
