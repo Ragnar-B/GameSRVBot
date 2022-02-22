@@ -8,10 +8,9 @@ from paramiko import SSHClient
 load_dotenv()
 
 discord = discord.Client()
-#ssh = SSHclient()
+ssh = paramiko.SSHclient()
 
-#discord.run(os.getenv('TOKEN'))
-#ssh.load_system_host_keys()
+ssh.load_system_host_keys()
 
 @discord.event
 async def on_ready():
@@ -29,8 +28,9 @@ async def on_message(message):
         send_magic_packet ((os.getenv('SRVMAC')), ip_address=(os.getenv('BCAST')))
         await message.channel.send('Turning on server!')
 
-#    if message.content.startswith('$off'):
-#        ssh.connect(os.getenv('SRV'))
-#        await message.channel.send('Turning off server!')
-#        ssh.close()
+    if message.content.startswith('$off'):
+        ssh.connect(os.getenv('SRV'))
+        await message.channel.send('Turning off server!')
+        ssh.close()
+
 discord.run(os.getenv('TOKEN'))
