@@ -11,9 +11,9 @@ discord = discord.Client()
 ssh = paramiko.SSHClient()
 
 ssh.load_system_host_keys()
+key = paramiko.RSAKey.from_private_key_file((os.getenv('KEYLOC')))
 
-shtdwncmd = "shutdown -h now"
-
+commands = [ 'sudo shutdown now' ]
 @discord.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(discord))
@@ -32,7 +32,13 @@ async def on_message(message):
 
     if message.content.startswith('$off'):
         try:
-          ssh.connect(hostname=(os.getenv('SRV')))
+          ssh.connect(hostname=(os.getenv('SRV')),username=(os.getenv('SVRUSR')),pkey=key)
+          for command in commands:
+            stdin, stdout, stderr = ssh.exec_command(command)
+            print(stdout.read().decode())
+            err = stderr.read().decode()
+            if err:
+              print(err)
           await message.channel.send('Turning off server!')
         except:
           await message.channel.send('Cant connect to Gameserver')
