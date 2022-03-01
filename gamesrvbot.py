@@ -33,13 +33,14 @@ async def on_message(message):
     if message.content.startswith('$off'):
         try:
           ssh.connect(hostname=(os.getenv('SRV')),username=(os.getenv('SVRUSR')),pkey=key)
+          await message.channel.send('Turning off server!')
           for command in commands:
             stdin, stdout, stderr = ssh.exec_command(command)
             print(stdout.read().decode())
             err = stderr.read().decode()
             if err:
               print(err)
-          await message.channel.send('Turning off server!')
+
         except:
           await message.channel.send('Cant connect to Gameserver')
         ssh.close()
