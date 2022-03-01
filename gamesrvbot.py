@@ -1,9 +1,12 @@
+from keep_alive import keep_alive
 import discord
 import os
 import paramiko
 
 from dotenv import load_dotenv
 from wakeonlan import send_magic_packet
+
+keep_alive()
 
 load_dotenv()
 
