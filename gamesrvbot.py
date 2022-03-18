@@ -1,5 +1,5 @@
 from keep_alive import keep_alive
-import discord
+import nextcord
 import os
 import paramiko
 
@@ -10,20 +10,20 @@ keep_alive()
 
 load_dotenv()
 
-discord = discord.Client()
+discord = nextcord.Client()
 ssh = paramiko.SSHClient()
 
 ssh.load_system_host_keys()
 key = paramiko.RSAKey.from_private_key_file((os.getenv('KEYLOC')))
 
 commands = [ 'sudo shutdown now' ]
-@discord.event
+@nextcord.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(discord))
 
-@discord.event
+@nextcord.event
 async def on_message(message):
-    if message.author == discord.user:
+    if message.author == nextcord.user:
         return
 
     if message.content.startswith('$hello'):
@@ -53,4 +53,4 @@ async def on_message(message):
         await message.channel.send('$off for turning off server.')
         await message.channel.send('$Hello for a friendly message.')
 
-discord.run(os.getenv('TOKEN'))
+nextcord.run(os.getenv('TOKEN'))
