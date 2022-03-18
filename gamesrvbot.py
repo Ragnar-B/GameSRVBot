@@ -17,11 +17,11 @@ ssh.load_system_host_keys()
 key = paramiko.RSAKey.from_private_key_file((os.getenv('KEYLOC')))
 
 commands = [ 'sudo shutdown now' ]
-@nextcord.event
+@discord.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(discord))
 
-@nextcord.event
+@discord.event
 async def on_message(message):
     if message.author == nextcord.user:
         return
