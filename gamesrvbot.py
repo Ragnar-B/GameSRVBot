@@ -53,4 +53,4 @@ async def on_message(message):
         await message.channel.send('$off for turning off server.')
         await message.channel.send('$Hello for a friendly message.')
 
-nextcord.run(os.getenv('TOKEN'))
+discord.run(os.getenv('TOKEN'))
