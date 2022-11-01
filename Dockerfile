@@ -6,6 +6,8 @@ COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt 
 
 COPY keep_alive.py ./
-COPY gamesrvbot.py ./ 
+COPY gamesrvbot.py ./
+
+EXPOSE 8080/tcp
 
 CMD [ "python", "./gamesrvbot.py" ] 
