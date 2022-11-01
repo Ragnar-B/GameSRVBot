@@ -48,9 +48,4 @@ async def on_message(message):
           await message.channel.send('Cant connect to Gameserver')
         ssh.close()
 
-#    if message.content.startswith('$functions'):
-#        await message.channel.send('$on for turning on server.')
-#        await message.channel.send('$off for turning off server.')
-#        await message.channel.send('$Hello for a friendly message.')
-
 discord.run(os.getenv('TOKEN'))
