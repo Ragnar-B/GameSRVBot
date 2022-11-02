@@ -1,0 +1,20 @@
+---
+version: "3.9"
+services:
+  gamesvrbot:
+    image: gamesvrbot:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - TOKEN=
+      - SERVERMAC=
+      - BROADCAST=
+      - SERVER=
+      - SERVERUSER=
+    volumes:
+      - /path/to/ssh/key:/usr/src/app/ssh.key
+    ports:
+      - 8080:8080
+    restart: unless-stopped
