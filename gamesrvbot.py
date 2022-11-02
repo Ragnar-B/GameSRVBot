@@ -27,12 +27,12 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     if message.content.startswith('$on'):
-        send_magic_packet ((os.environ('SERVERMAC')), ip_address=(os.environ('BROADCAST')))
+        send_magic_packet ((os.environ['SERVERMAC']), ip_address=(os.environ['BROADCAST']))
         await message.channel.send('Turning on server!')
 
     if message.content.startswith('$off'):
         try:
-          ssh.connect(hostname=(os.environ('SERVER')),username=(os.environ('SERVERUSER')),pkey=key)
+          ssh.connect(hostname=(os.environ['SERVER']),username=(os.environ['SERVERUSER']),pkey=key)
           await message.channel.send('Turning off server!')
           for command in commands:
             stdin, stdout, stderr = ssh.exec_command(command)
@@ -45,4 +45,4 @@ async def on_message(message):
           await message.channel.send('Cant connect to Gameserver')
         ssh.close()
 
-discord.run(os.environ('TOKEN'))
+discord.run(os.environ['TOKEN'])
