@@ -3,7 +3,7 @@ version: "3.9"
 services:
   gamesvrbot:
     image: gamesvrbot:latest
-    container_name: sonarr
+    container_name: gamesvrbot
     environment:
       - PUID=1000
       - PGID=1000
