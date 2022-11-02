@@ -3,18 +3,15 @@ import nextcord
 import os
 import paramiko
 
-from dotenv import load_dotenv
 from wakeonlan import send_magic_packet
 
 keep_alive()
-
-load_dotenv()
 
 discord = nextcord.Client()
 ssh = paramiko.SSHClient()
 
 ssh.load_system_host_keys()
-key = paramiko.RSAKey.from_private_key_file((os.getenv('KEYLOC')))
+key = paramiko.RSAKey.from_private_key_file("/usr/src/app/ssh.key")
 
 commands = [ 'sudo shutdown now' ]
 @discord.event
@@ -30,12 +27,12 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     if message.content.startswith('$on'):
-        send_magic_packet ((os.getenv('SRVMAC')), ip_address=(os.getenv('BCAST')))
+        send_magic_packet ((os.environ('SERVERMAC')), ip_address=(os.environ('BROADCAST')))
         await message.channel.send('Turning on server!')
 
     if message.content.startswith('$off'):
         try:
-          ssh.connect(hostname=(os.getenv('SRV')),username=(os.getenv('SVRUSR')),pkey=key)
+          ssh.connect(hostname=(os.environ('SERVER')),username=(os.environ('SERVERUSER')),pkey=key)
           await message.channel.send('Turning off server!')
           for command in commands:
             stdin, stdout, stderr = ssh.exec_command(command)
@@ -48,4 +45,4 @@ async def on_message(message):
           await message.channel.send('Cant connect to Gameserver')
         ssh.close()
 
-discord.run(os.getenv('TOKEN'))
+discord.run(os.environ('TOKEN'))

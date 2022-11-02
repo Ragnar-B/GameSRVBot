@@ -1,5 +1,4 @@
 Flask==2.2.2
 nextcord==2.2.0
 paramiko==2.10.1
-python-dotenv==0.21.0
 wakeonlan==2.1.0
