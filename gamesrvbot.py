@@ -18,11 +18,12 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 commands = [ 'sudo shutdown now' ]
 @discord.event
 async def on_ready():
+    await message.channel.send('Im Alive!!')
     print('We have logged in as {0.user}'.format(discord))
 
 @discord.event
 async def on_message(message):
-    if message.author == nextcord.user:
+    if message.author == discord.user:
         return
 
     if message.content.startswith('$hello'):
@@ -46,5 +47,10 @@ async def on_message(message):
         except:
           await message.channel.send('Cant connect to Gameserver')
         ssh.close()
+
+    if message.content.startswith('$functions'):
+        await message.channel.send('$on for turning on server.')
+        await message.channel.send('$off for turning off server.')
+        await message.channel.send('$Hello for a friendly message.')
 
 discord.run(os.environ['TOKEN'])
