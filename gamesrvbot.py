@@ -13,6 +13,8 @@ ssh = paramiko.SSHClient()
 ssh.load_system_host_keys()
 key = paramiko.RSAKey.from_private_key_file("/usr/src/app/ssh.key")
 
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
 commands = [ 'sudo shutdown now' ]
 @discord.event
 async def on_ready():
