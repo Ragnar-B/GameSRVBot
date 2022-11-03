@@ -1,4 +1,4 @@
 Flask==2.2.2
-nextcord==2.2.0
+nextcord==2.0.0a9
 paramiko==2.10.1
 wakeonlan==2.1.0
