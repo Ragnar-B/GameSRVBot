@@ -18,8 +18,7 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 commands = [ 'sudo shutdown now' ]
 @discord.event
 async def on_ready():
-    await message.channel.send('Im Alive!!')
-    print('We have logged in as {0.user}'.format(discord))
+    print(f'We have logged in as {0.user}'.format(discord))
 
 @discord.event
 async def on_message(message):
